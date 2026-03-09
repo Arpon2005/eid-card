@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Eid Mubarak Card</title>
+
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&family=Noto+Serif+Bengali:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ----------------------------
+GENERAL STYLING
+---------------------------- */
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family:'Poppins',sans-serif;
+height:100vh;
+background:linear-gradient(135deg,#0f5132,#198754);
+display:flex;
+align-items:center;
+justify-content:center;
+overflow:hidden;
+color:white;
+}
+
+/* Star background animation */
+
+.stars{
+position:fixed;
+width:100%;
+height:100%;
+background:url("https://i.imgur.com/9Q9Z1Zm.png");
+animation:twinkle 8s linear infinite;
+opacity:0.4;
+}
+
+@keyframes twinkle{
+0%{opacity:.2}
+50%{opacity:.6}
+100%{opacity:.2}
+}
+
+
+/* ----------------------------
+CARD CONTAINER
+---------------------------- */
+
+.card{
+width:360px;
+height:520px;
+position:relative;
+perspective:1500px;
+}
+
+/* Front + inside pages */
+
+.page{
+position:absolute;
+width:100%;
+height:100%;
+border-radius:16px;
+padding:30px;
+backface-visibility:hidden;
+transition:transform 1s;
+box-shadow:0 15px 40px rgba(0,0,0,0.5);
+}
+
+/* FRONT PAGE */
+
+.front{
+background:linear-gradient(160deg,#065f46,#047857);
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+text-align:center;
+}
+
+.front h1{
+font-size:42px;
+color:#FFD700;
+margin-bottom:20px;
+}
+
+.info{
+margin:10px 0;
+font-size:18px;
+}
+
+/* Open button */
+
+button{
+margin-top:25px;
+padding:12px 24px;
+border:none;
+border-radius:30px;
+background:#FFD700;
+color:#065f46;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+}
+
+button:hover{
+transform:scale(1.05);
+}
+
+/* INSIDE PAGE */
+
+.inside{
+background:linear-gradient(160deg,#064e3b,#065f46);
+transform:rotateY(180deg);
+text-align:center;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+}
+
+/* Bangla text */
+
+.bangla{
+font-family:'Noto Serif Bengali',serif;
+font-size:22px;
+line-height:1.8;
+color:#fceabb;
+}
+
+/* OPEN ANIMATION */
+
+.card.open .front{
+transform:rotateY(-180deg);
+}
+
+.card.open .inside{
+transform:rotateY(0deg);
+}
+
+
+/* Decorative moon */
+
+.moon{
+position:absolute;
+top:40px;
+right:40px;
+width:80px;
+height:80px;
+background:#FFD700;
+border-radius:50%;
+box-shadow:-15px 0 0 5px #065f46;
+}
+
+/* Lantern animation */
+
+.lantern{
+position:absolute;
+bottom:-80px;
+left:50%;
+width:40px;
+height:60px;
+background:#FFD700;
+border-radius:6px;
+animation:float 6s infinite ease-in-out;
+}
+
+@keyframes float{
+0%{transform:translate(-50%,0)}
+50%{transform:translate(-50%,-20px)}
+100%{transform:translate(-50%,0)}
+}
+
+footer{
+position:absolute;
+bottom:10px;
+font-size:12px;
+opacity:0.7;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="stars"></div>
+
+<div class="card" id="card">
+
+<!-- FRONT PAGE -->
+<div class="page front">
+
+<div class="moon"></div>
+
+<h1>Eid Mubarak</h1>
+
+<div class="info">Sent To: <span id="toName"></span></div>
+<div class="info">Sent By: <span id="fromName"></span></div>
+
+<p style="margin-top:10px;font-size:14px;">
+Wishing you joy, peace, and blessings on this beautiful Eid day.
+</p>
+
+<button onclick="openCard()">Open Card</button>
+
+</div>
+
+
+<!-- INSIDE PAGE -->
+<div class="page inside">
+
+<div class="bangla">
+
+ঈদ মানে আনন্দ,<br>
+ঈদ মানে ভালোবাসা,<br><br>
+
+ঈদ মানে আপনজনদের সাথে<br>
+হাসি ও খুশির ভাগাভাগি।<br><br>
+
+আপনার জীবন ভরে উঠুক<br>
+শান্তি, সুখ ও সমৃদ্ধিতে।<br><br>
+
+<b>ঈদ মোবারক!</b>
+
+</div>
+
+<div class="lantern"></div>
+
+<footer>May Allah bless you</footer>
+
+</div>
+
+</div>
+
+<script>
+
+/* --------------------------------
+READ NAME FROM URL PARAMETERS
+-------------------------------- */
+
+function getParameterByName(name){
+
+const urlParams = new URLSearchParams(window.location.search);
+return urlParams.get(name);
+
+}
+
+/* Default values */
+
+let toName = getParameterByName("to") || "Dear Friend";
+let fromName = getParameterByName("from") || "Your Friend";
+
+/* Insert into card */
+
+document.getElementById("toName").textContent = toName;
+document.getElementById("fromName").textContent = fromName;
+
+
+/* --------------------------------
+CARD OPEN FUNCTION
+-------------------------------- */
+
+function openCard(){
+
+document.getElementById("card").classList.add("open");
+
+}
+
+</script>
+
+</body>
+</html>
